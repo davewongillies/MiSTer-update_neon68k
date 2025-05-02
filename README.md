@@ -2,7 +2,7 @@
 
 ## PLEASE NOTE WARNING WARNING
 
-The creator of this script has *zero* coding experience. It was created by gentlely whispering into ChatGPT's ear for 3+ hours, and it is probably *really bad*. However, it works.
+The creator of this script has *zero* coding experience. It was created by gently whispering into ChatGPT's ear for 3+ hours, and it is probably *really bad*. However, it works.
 
 Be warned that it is presented without any guarantee. Will it blow up your MiSTer? Probably not. But the chance is not zero percent.
 
