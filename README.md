@@ -1,22 +1,33 @@
 # Neon68K Updater Script
 
-## PLEASE NOTE WARNING WARNING
+## Overview
 
-The creator of this script has *zero* coding experience. It was created by gently whispering into ChatGPT's ear for 3+ hours, and it is probably *really bad*. However, it works.
+A script for keeping your [Neon68K](https://neon68k.com/) collection update to
+date on your MiSTer.
 
-Be warned that it is presented without any guarantee. Will it blow up your MiSTer? Probably not. But the chance is not zero percent.
+## Installation
 
-Please feel free to submit pull requests to improve the script. The creator knows their code is bad. They don't care - the fact they were able to manifest anything functional is a miracle. Rejoice. Rejoice.
+1. Add the following to `/media/fat/downloader.ini` on your MiSTer
+
+```ini
+[update_neon68k]
+db_url = https://raw.githubusercontent.com/Neon68K/Automatic-Updater-Script/db/db.json.zip
+```
+
+2. Run `update_all` from the `Scripts` menu to install
 
 ## Usage
 
-Place the script in /media/fat/Scripts on your MiSTer's SD card. Navigate the Script menu in the MiSTer OSD and run it from there.
+1. Goto the Scripts menu on your MiSTer and run the `update_neon68k` script
+2. The first time the script is run choose your scaler preference:
+   - Do you have a **4K Scaler** or the **MiSTer Scaler**?
+       - If you have a [Retrotink 4K](https://consolemods.org/wiki/AV:RetroTINK-4K)
+         or a [Morph4K](https://junkerhq.net/xrgb/index.php?title=Morph_4k),
+         you'll want to select the **4K Scaler** option.
+       - If not, select **MiSTer Scaler**.
+   - The script will use that information and will download all the games in the
+     archive the first time it is run.
+   - On subsequent runs it will download anything that has been added from the
+     last time it was run.
 
-When run, the script will ask you two questions:
-- Do you want to download the whole archive?
-  - If you select **Yes**, the Script will download every game in the archive based on your Scaler preferences (more on that in a second).
-  - If you select **No**, the Script will check the upload date of the files and, based on your Scaler preference, will download anything added since the last time the script was run.
-- Do you have a **4K Scaler** or the **MiSTer Scaler**?
-  - If you have a Retrotink4k or a Morph4K, you'll want to select the **4K Scaler** option. If not, select **MiSTer Scaler**. The script will use that information and will (depending on the first choice you made) either download all the games in the archive, or download anything that has been added from the last time it was run.
- 
-After that, all you need to do is sit back, relax, and pray.
+   After that, all you need to do is sit back, relax, and enjoy.
