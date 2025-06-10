@@ -60,7 +60,7 @@ url_encode() {
 
 # Parse file list from archive.org metadata
 parse_file_list() {
-    all_files=$(jq --arg scaler_dir "${scaler_dir}" --arg n68k_version "${NEON68K_VERSION}" -r '.files[].name | match($n68k_version + "/" + $scaler_dir + "/.*\\.zip$") | .string' < $ARCHIVE_METADATA)
+    all_files=$(jq -r '.files[].name' < $ARCHIVE_METADATA | grep -E "${NEON68K_VERSION}/${scaler_dir}/.*\.zip$")
 
     if [ -z "$all_files" ]; then
         echo "No zip files found."
