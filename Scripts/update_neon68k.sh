@@ -8,6 +8,8 @@ CONFIG_DIR="${DEST_DIR}/Scripts/.config/neon68k"
 LASTRUN_FILE="${CONFIG_DIR}/lastrun.txt"
 SCRIPT_INI="${DEST_DIR}/Scripts/update_neon68k.ini"
 
+NEON68K_VERSION=Neon68K-20250428
+
 [[ -e "${DEST_DIR}" ]]   || mkdir -p "$DEST_DIR"
 [[ -e "${TMP_DIR}" ]]    || mkdir -p "$TMP_DIR"
 [[ -e "${CONFIG_DIR}" ]] || mkdir -p "${CONFIG_DIR}"
@@ -58,7 +60,7 @@ url_encode() {
 
 # Parse file list from archive.org metadata
 parse_file_list() {
-    all_files=$(jq -r '.files[].name | match(".*\\.zip$") | .string' < $ARCHIVE_METADATA)
+    all_files=$(jq --arg scaler_dir "${scaler_dir}" --arg n68k_version "${NEON68K_VERSION}" -r '.files[].name | match($n68k_version + "/" + $scaler_dir + "/.*\\.zip$") | .string' < $ARCHIVE_METADATA)
 
     if [ -z "$all_files" ]; then
         echo "No zip files found."
