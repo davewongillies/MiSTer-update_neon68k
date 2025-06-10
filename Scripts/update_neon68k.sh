@@ -72,7 +72,11 @@ parse_file_list() {
 # Download and extract matching files
 sync_files() {
     echo "Fetching archive metadata..."
-    wget -qO${ARCHIVE_METADATA} "https://archive.org/metadata/$ARCHIVE_ID?output=json"
+    if ! wget -qO${ARCHIVE_METADATA} "https://archive.org/metadata/$ARCHIVE_ID?output=json"
+    then
+      echo "Failed to download archive metadata, exiting"
+      exit 1
+    fi
 
     echo "Starting sync..."
     echo "Fetching file list..."
@@ -80,7 +84,7 @@ sync_files() {
 
     if [ "$full_download" -eq 0 ]; then
         last_run=$(cat "$LASTRUN_FILE" 2>/dev/null || echo 0)
-        echo "Performing incremental sync since: $(date -d @${last_run})"
+        echo "Performing incremental sync since: $(date -d @"${last_run}")"
     fi
 
     while IFS= read -r file; do
@@ -95,11 +99,9 @@ sync_files() {
         fi
 
         echo Downloading "${file}"...
-        wget -q --show-progress \
-          -O "$TMP_DIR/tmp.zip" \
-          "https://archive.org/download/$ARCHIVE_ID/$(url_encode "$file")"
-
-        if [ $? -ne 0 ] || [ ! -f "$TMP_DIR/tmp.zip" ]; then
+        if ! wget -q --show-progress -O "$TMP_DIR/tmp.zip" \
+              "https://archive.org/download/$ARCHIVE_ID/$(url_encode "$file")"
+        then
             echo "Download failed: $file"
             continue
         fi
